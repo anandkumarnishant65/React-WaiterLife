@@ -15,16 +15,19 @@ function App() {
 
   const [waitersList, setWaitersList] = useState(getLocalItem())
 
-  const waiterListHandler = (wFood, wPrice) => {
+  const waiterListHandler = (wFood, wPrice, wTable) => {
+
 
       setWaitersList((prevList)=>{
         return [...prevList, 
           { restaurantFood: wFood, 
-            restaurantPrice: wPrice, 
+            restaurantPrice: wPrice,
+            restaurantTable: wTable,
             id: Math.random().toString()
           }]
       })
   }
+  
 
   useEffect(()=>{
     localStorage.setItem('list', JSON.stringify(waitersList))
