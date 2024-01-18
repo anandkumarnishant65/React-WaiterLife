@@ -1,23 +1,56 @@
-import logo from './logo.svg';
+import React,{useState, useEffect} from 'react';
+import Waiter from './Components/waiter';
 import './App.css';
 
 function App() {
+  const getLocalItem = () => {
+    let lists = localStorage.getItem('list')
+    if(lists){
+      return JSON.parse(localStorage.getItem('list'))
+    }
+    else{
+      return []
+    }
+  }
+
+  const [waitersList, setWaitersList] = useState(getLocalItem())
+
+  const waiterListHandler = (wFood, wPrice) => {
+
+      setWaitersList((prevList)=>{
+        return [...prevList, 
+          { restaurantFood: wFood, 
+            restaurantPrice: wPrice, 
+            id: Math.random().toString()
+          }]
+      })
+  }
+
+  useEffect(()=>{
+    localStorage.setItem('list', JSON.stringify(waitersList))
+  },[waitersList])
+
+  const deleteItem = (id) => {
+    let items = JSON.parse(localStorage.getItem('list'));
+    const filtered = items.filter(item => item.id !== id);
+    localStorage.setItem('list', JSON.stringify(filtered))
+
+    setWaitersList(filtered)
+}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Waiter onAdd={waiterListHandler}/>
+
+      <ul>
+          {waitersList.map((user) => (
+              <li key={user.id}>
+                  {user.restaurantFood} {user.restaurantPrice}
+                  <button onClick={()=>deleteItem(user.id)}>Delete</button>
+              </li>
+          ))}
+            
+        </ul>
     </div>
   );
 }
