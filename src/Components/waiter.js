@@ -4,7 +4,7 @@ import Card from './Card';
 const Waiter = (props) => {
     const [foofItem, setFoodItem] = useState('');
     const [price, setPrice] = useState('');
-    const [table, setTable] = useState('Table 1')
+    const [table, setTable] = useState('Table1')
 
     const foodChangeHandler = (event) => {
         setFoodItem(event.target.value)
