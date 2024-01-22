@@ -1,5 +1,7 @@
 import React,{useState} from 'react';
-import Card from './Card';
+import Card from './Card/Card';
+import './waiter.css'
+
 
 const Waiter = (props) => {
     const [foofItem, setFoodItem] = useState('');
@@ -28,27 +30,35 @@ const Waiter = (props) => {
     
     return (
         <Card>
-            <div>
+            
             <form onSubmit={waiterHandler}>
-                <label>Food Item</label>
-                <input type='text' onChange={foodChangeHandler} required></input>
-                <label>Price</label>
-                <input type='number' onChange={priceChangeHandler} required></input>
+            <div className='food_description'>
+                
+                    <div className='food_description label'>
+                        <label >Food Item</label>
+                        <input type='text' onChange={foodChangeHandler} required></input>
+                    </div>
+                
+                    <div className='food_description label'>
+                        <label>Price</label>
+                        <input type='number' onChange={priceChangeHandler} required></input>
+                    </div>
+                
 
-                <label htmlFor="Table">Table No.</label>
-                <select name="Table" id="Table" onChange={tableHandler} >
-                    <option value="Table1">Table 1</option>
-                    <option value="Table2">Table 2</option>
-                    <option value="Table3">Table 3</option>
-                </select>
-                <button type='submit'>Add</button>
+                    <div className='food_description label'>
+                        <label htmlFor="Table">Table No.</label>
+                    </div>
+                    <select name="Table" id="Table" onChange={tableHandler} >
+                        <option value="Table1">Table 1</option>
+                        <option value="Table2">Table 2</option>
+                        <option value="Table3">Table 3</option>
+                    </select><br></br>
+                
+                    <button type='submit'>Add Items</button>
+                
+                </div>
             </form>
-           </div>
-           <div>
-                <div id="Table1"><h4><b>Table1</b></h4></div><hr></hr>
-                <div id="Table2"><h4><b>Table2</b></h4></div><hr></hr>
-                <div id="Table3"><h4><b>Table3</b></h4></div>
-           </div>
+           
             
         </Card>
     )
